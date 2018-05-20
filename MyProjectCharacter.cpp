@@ -170,7 +170,7 @@ void AMyProjectCharacter::CollectPickups() {
 			ABatteryChild* const TestBattery = Cast<ABatteryChild>(TestPickup);
 			if (TestBattery) { // if the cast was sucessful 
 				//increase colleceted power
-				CollectedPower += TestBattery->GetPower();
+				CollectedPower = CollectedPower +  TestBattery->GetPower();
 			}
 			TestPickup->setActive(false);
 		}
@@ -184,5 +184,5 @@ void AMyProjectCharacter::CollectPickups() {
 float AMyProjectCharacter::GetCurrentPower() { return CharacterPower; }
 float AMyProjectCharacter::GetInitalPower() { return InitalPower; }
 void AMyProjectCharacter::UpdatePower(float PowerChange){
-	CharacterPower += PowerChange;
+	CharacterPower  = CharacterPower + PowerChange;
 }

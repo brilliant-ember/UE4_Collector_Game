@@ -10,7 +10,7 @@ ABatteryChild::ABatteryChild(){
 	GetMesh()->SetSimulatePhysics(true);
 
 	//base power for the battery
-	BatteryPower = 150.f;
+	BatteryPower = +150.f;
 
 }
 
