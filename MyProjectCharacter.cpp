@@ -54,14 +54,19 @@ AMyProjectCharacter::AMyProjectCharacter()
 	CollectionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("CollectionSphere"));
 	CollectionSphere->AttachTo(RootComponent);
 	CollectionSphere->SetSphereRadius(200.f);
+	//pwr vars
 	InitalPower = 200.f;
 	CharacterPower = InitalPower;
+	//spd vars
+	BaseSpeed = 200.0f;  //the speed will be efited in the update power function
+	SpeedFactor = 0.75f;
+
+	DecayRate = 0.01f;
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 
-	//PrimaryActorTick.bCanEverTick = true;
-	DecayRate = 0.01f;
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -191,6 +196,8 @@ float AMyProjectCharacter::GetCurrentPower() { return CharacterPower; }
 float AMyProjectCharacter::GetInitalPower() { return InitalPower; }
 void AMyProjectCharacter::UpdatePower(float PowerChange){
 	CharacterPower  = PowerChange + CharacterPower ;
+	GetCharacterMovement()->MaxWalkSpeed = BaseSpeed + (SpeedFactor * CharacterPower);
+	PowerChangeEffect();
 }
 void AMyProjectCharacter::Tick(float DeltaSeconds) {
 	Super::Tick(DeltaSeconds);

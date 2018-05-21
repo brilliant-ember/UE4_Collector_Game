@@ -78,6 +78,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Power")
 		float DecayRate;
 
+	//The speed changing vars, spdfactr is the multiplier
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+		float SpeedFactor;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
+		float BaseSpeed;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Power")//means this function will be implemented in UE blueprint, not in cpp file
+		void PowerChangeEffect();
+
 
 private:
 	//curretn power lvl of our character
