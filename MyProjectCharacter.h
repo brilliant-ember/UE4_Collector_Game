@@ -74,6 +74,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Power", Meta = (BlueprintProtected = "true"))
 		float InitalPower;
 
+	//The health decay overtime
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Power")
+		float DecayRate;
+
+
 private:
 	//curretn power lvl of our character
 	UPROPERTY(VisibleAnywhere, Category="Power")
@@ -93,5 +98,7 @@ public:
 	float GetInitalPower();
 	UFUNCTION(BlueprintCallable, Category = "Power")
 	void UpdatePower(float PowerChange); //pwr change can be + or -
+
+	virtual void Tick(float DeltaSeconds) override;
 };
 

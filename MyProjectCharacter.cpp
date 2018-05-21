@@ -13,11 +13,14 @@
 #include "BatteryChild.h"
 #include "Runtime/Engine/Classes/Components/SceneComponent.h"
 
+
 //////////////////////////////////////////////////////////////////////////
 // AMyProjectCharacter
 
 AMyProjectCharacter::AMyProjectCharacter()
 {
+	
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -56,6 +59,9 @@ AMyProjectCharacter::AMyProjectCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+
+	//PrimaryActorTick.bCanEverTick = true;
+	DecayRate = 0.01f;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -184,5 +190,14 @@ void AMyProjectCharacter::CollectPickups() {
 float AMyProjectCharacter::GetCurrentPower() { return CharacterPower; }
 float AMyProjectCharacter::GetInitalPower() { return InitalPower; }
 void AMyProjectCharacter::UpdatePower(float PowerChange){
-	CharacterPower  = CharacterPower + PowerChange;
+	CharacterPower  = PowerChange + CharacterPower ;
 }
+void AMyProjectCharacter::Tick(float DeltaSeconds) {
+	Super::Tick(DeltaSeconds);
+	//UE_LOG(LogClass, Log, TEXT("THIS IS THE TICKKK!! %s"));
+	Super::Tick(DeltaSeconds);
+	
+		if (AMyProjectCharacter::GetCurrentPower() > 0) {
+			AMyProjectCharacter::UpdatePower(-1* DecayRate*(AMyProjectCharacter::GetInitalPower()));
+		}
+	}
